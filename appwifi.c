@@ -42,27 +42,35 @@ bool wificollector_quit()
 
 void wificollector_collect()
 {
-int eleccion2;
-char celda[]="info_cell_";
-char celda2[21];
-bool exit2;
-FILE *celda;
-char decision;
-bool salir;
 
+bool exit2;
+bool salir;
+char decision;
 do
 {
   do
   {
-  printf("¿Qué celda desea recolectar? (1-21): \n");
-  scanf("%d",&eleccion2);
+    int eleccion2;
+    char celda[]="info_cell_";
+    char celda2[21];
+    FILE *fcelda; //Archivo que contendrá la celda elegida
+    printf("¿Qué celda desea recolectar? (1-21): \n");
+    scanf("%d",&eleccion2);
     if(eleccion2>=1 && eleccion2<=21)
     {
       sprintf(celda2,"%u",eleccion2);//concatenamos para tener la celda elegida
       strcat(celda,celda2);
       strcat(celda,".txt");
       printf("%s\n", celda);
-      if()
+      fcelda = fopen(celda, "r");
+      if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
+      else
+      {
+        while(!feof(fcelda)) //Mientras no haya llegado al final del archivo...
+        {
+          printf("%c", fgetc(fcelda));
+        }
+      }
       exit2=true;
     }else {
       printf("Introduce un número valido. ");
