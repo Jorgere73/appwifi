@@ -76,6 +76,7 @@ do
       printf("Introduce un número valido. ");
       exit2=false;
     }
+    fclose(fcelda);
   }while(exit2==false);
   printf("¿Desea añadir otro punto de acceso? [S/N]\n");
   scanf("%s", &decision); decision = tolower(decision);
