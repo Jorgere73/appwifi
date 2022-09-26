@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h> //Incluye función tolower()
 #include <stdbool.h>
+#include <string.h>
 
 int printmenu()
 {
@@ -35,4 +36,43 @@ bool wificollector_quit()
     else if(exit == 'n') {return false;}
     else {printf("Introduzca una de las opciones dadas [S/N]\n");}
   } while(true);
+
+
+}
+
+void wificollector_collect()
+{
+int eleccion2;
+char celda[]="info_cell_";
+char celda2[21];
+bool exit2;
+FILE *celda;
+char decision;
+bool salir;
+
+do
+{
+  do
+  {
+  printf("¿Qué celda desea recolectar? (1-21): \n");
+  scanf("%d",&eleccion2);
+    if(eleccion2>=1 && eleccion2<=21)
+    {
+      sprintf(celda2,"%u",eleccion2);//concatenamos para tener la celda elegida
+      strcat(celda,celda2);
+      strcat(celda,".txt");
+      printf("%s\n", celda);
+      if()
+      exit2=true;
+    }else {
+      printf("Introduce un número valido. ");
+      exit2=false;
+    }
+  }while(exit2==false);
+  printf("¿Desea añadir otro punto de acceso? [S/N]\n");
+  scanf("%s", &decision); decision = tolower(decision);
+  if(decision == 's') {salir= true;}
+  else if(decision == 'n') {salir= false;}
+  else {printf("Introduzca una de las opciones dadas [S/N]\n");}
+  } while (salir==true);
 }

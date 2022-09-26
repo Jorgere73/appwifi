@@ -5,5 +5,6 @@
 
 int printmenu(); //Imprime el menú y devuelve valor introducido
 bool wificollector_quit(); //Sirve para cerrar el programa
+void wificollector_collect();
 
 #endif
