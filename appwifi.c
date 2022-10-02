@@ -43,10 +43,11 @@ bool wificollector_quit()
 
 }
 
-void wificollector_collect()//tenemos q abrir los archivos y recolectar lo q tiene dentro en un array
+int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q tiene dentro en un array
 {
 
 bool exit2;
+int collect[21][MAX_VALUE];
 bool salir;
 char decision;
 int cadena[MAX_VALUE];
@@ -77,12 +78,11 @@ do
             int leido = fgetc(fcelda);
 
             //leido = leido + '0';
-            char *conct = "0";
+            //char *conct = "0";
             printf("%c", leido);
             //sprintf(conct, "%c", leido);
             //char a = leido + '0';//pasamos el int a char
             cadena[cont] = leido;
-            cont++;
         }
           //printf("La cadena es: %s\n", cadena);
       }
@@ -91,6 +91,7 @@ do
       printf("Introduce un número valido. ");
       exit2=false;
     }
+    collect[eleccion2] = cadena;
     fclose(fcelda);
   }while(exit2==false);
   printf("¿Desea añadir otro punto de acceso? [S/N]\n");
@@ -99,6 +100,7 @@ do
   else if(decision == 'n') {salir= false;}
   else {printf("Introduzca una de las opciones dadas [S/N]\n");}
   } while (salir);
+  return collect;
 }
 
 /*void wificollector_show_data_one_network(){

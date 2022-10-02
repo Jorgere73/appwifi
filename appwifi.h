@@ -3,8 +3,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+
+
 int printmenu(); //Imprime el menú y devuelve valor introducido
 bool wificollector_quit(); //Sirve para cerrar el programa
-void wificollector_collect();
-
+int** wificollector_collect();
 #endif
