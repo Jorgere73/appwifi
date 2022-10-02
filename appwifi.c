@@ -47,7 +47,7 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
 {
 
 bool exit2;
-int collect[21][MAX_VALUE];
+int collect[21][MAX_VALUE]; //Matriz que contendrá los distintos archivos con su contenido
 bool salir;
 char decision;
 int cadena[MAX_VALUE];
@@ -79,7 +79,7 @@ do
 
             //leido = leido + '0';
             //char *conct = "0";
-            printf("%c", leido);
+            //printf("%c", leido);
             //sprintf(conct, "%c", leido);
             //char a = leido + '0';//pasamos el int a char
             cadena[cont] = leido;
@@ -91,7 +91,11 @@ do
       printf("Introduce un número valido. ");
       exit2=false;
     }
-    collect[eleccion2] = cadena;
+    //collect[eleccion2] = cadena;
+    for(int i = 0; i < MAX_VALUE; i++)
+    {
+      collect[eleccion2][i] = cadena[i];
+    }
     fclose(fcelda);
   }while(exit2==false);
   printf("¿Desea añadir otro punto de acceso? [S/N]\n");
