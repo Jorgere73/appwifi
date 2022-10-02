@@ -4,6 +4,8 @@
 #include <string.h>
 #include "appwifi.h"
 
+#define MAX_VALUE 210
+
 int printmenu()
 {
   int eleccion;
@@ -47,16 +49,15 @@ void wificollector_collect()//tenemos q abrir los archivos y recolectar lo q tie
 bool exit2;
 bool salir;
 char decision;
-char *cadena[MAX_VALUE];
+int cadena[MAX_VALUE];
 //char cadena[80];
-int cont=0;
 
 do
 {
   do
   {
     int eleccion2;
-    char celda[]="info_cell_";
+    char celda[]="cells/info_cell_";
     char celda2[21];
     FILE *fcelda; //Archivo que contendrá la celda elegida
     printf("¿Qué celda desea recolectar? (1-21): \n");
@@ -71,31 +72,33 @@ do
       if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
       else
       {    
-        do{//para meter el contenido del archivo en un char [][]
-          int leido=fgetc(fcelda);
-           if(!feof(fcelda)){
-              char a =(char) leido;//pasamos el int a char
-              strcat(cadena[cont],  a);
-              printf("%s",a);
-              
-            }
-           } while (!feof(fcelda));
+        for(int cont = 0; !feof(fcelda); cont++)
+        {
+            int leido = fgetc(fcelda);
+
+            //leido = leido + '0';
+            char *conct = "0";
+            printf("%c", leido);
+            //sprintf(conct, "%c", leido);
+            //char a = leido + '0';//pasamos el int a char
+            cadena[cont] = leido;
+            cont++;
+        }
           //printf("La cadena es: %s\n", cadena);
-          cont++;
       }
       exit2=true;
     }else {
       printf("Introduce un número valido. ");
       exit2=false;
     }
-     fclose(fcelda);
+    fclose(fcelda);
   }while(exit2==false);
   printf("¿Desea añadir otro punto de acceso? [S/N]\n");
   scanf("%s", &decision); decision = tolower(decision);
   if(decision == 's') {salir= true;}
   else if(decision == 'n') {salir= false;}
   else {printf("Introduzca una de las opciones dadas [S/N]\n");}
-  } while (salir==true);
+  } while (salir);
 }
 
 /*void wificollector_show_data_one_network(){
@@ -123,7 +126,7 @@ do
 void wificollector_display(){
 
 
-printf("¿indique el número de la celda que desea conocer su información (1-21): \n?")
+printf("¿indique el número de la celda que desea conocer su información (1-21): \n?");
 
 
 
