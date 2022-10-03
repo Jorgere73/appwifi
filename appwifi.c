@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h> //malloc()
 #include <ctype.h> //Incluye función tolower()
 #include <stdbool.h>
 #include <string.h>
@@ -47,12 +48,18 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
 {
 
 bool exit2;
-int collect[21][MAX_VALUE]; //Matriz que contendrá los distintos archivos con su contenido
+//int collect[21][MAX_VALUE]; //Matriz que contendrá los distintos archivos con su contenido
+int** collect;
 bool salir;
 char decision;
 int cadena[MAX_VALUE];
 //char cadena[80];
 
+collect = malloc(sizeof(int*)*21);
+for(int it = 0; it < 21; it++)
+{
+  collect[it] = malloc(sizeof(int*)*MAX_VALUE);
+}
 do
 {
   do
