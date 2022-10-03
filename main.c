@@ -3,6 +3,7 @@
 
 int main()
 {
+  int** arraycollect;
   switch(printmenu())
   {
     case 1:
@@ -12,7 +13,7 @@ int main()
       }
       break;
   case 2:
-    wificollector_collect();
+    arraycollect = wificollector_collect();
     break;
   }
   return 0;

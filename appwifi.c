@@ -5,7 +5,7 @@
 #include <string.h>
 #include "appwifi.h"
 
-#define MAX_VALUE 210
+#define MAX_VALUE 500
 
 int printmenu()
 {
@@ -49,8 +49,9 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
 
 bool exit2;
 //int collect[21][MAX_VALUE]; //Matriz que contendrá los distintos archivos con su contenido
+int** pcollect;
 int** collect;
-bool salir;
+bool nosalir;
 char decision;
 int cadena[MAX_VALUE];
 //char cadena[80];
@@ -107,10 +108,10 @@ do
   }while(exit2==false);
   printf("¿Desea añadir otro punto de acceso? [S/N]\n");
   scanf("%s", &decision); decision = tolower(decision);
-  if(decision == 's') {salir= true;}
-  else if(decision == 'n') {salir= false;}
+  if(decision == 's') {nosalir= true;}
+  else if(decision == 'n') {nosalir= false;}
   else {printf("Introduzca una de las opciones dadas [S/N]\n");}
-  } while (salir);
+  } while (nosalir);
   return collect;
 }
 
@@ -144,3 +145,4 @@ printf("¿indique el número de la celda que desea conocer su información (1-21
 
 
 }
+
