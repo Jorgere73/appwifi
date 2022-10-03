@@ -7,5 +7,6 @@
 
 int printmenu(); //Imprime el menú y devuelve valor introducido
 bool wificollector_quit(); //Sirve para cerrar el programa
-int** wificollector_collect();
+int** wificollector_collect(); //Guarda contenido de un archivo en un array 
+void wificollector_display();
 #endif

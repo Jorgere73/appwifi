@@ -84,22 +84,14 @@ do
         for(int cont = 0; !feof(fcelda); cont++)
         {
             int leido = fgetc(fcelda);
-
-            //leido = leido + '0';
-            //char *conct = "0";
-            //printf("%c", leido);
-            //sprintf(conct, "%c", leido);
-            //char a = leido + '0';//pasamos el int a char
             cadena[cont] = leido;
         }
-          //printf("La cadena es: %s\n", cadena);
       }
       exit2=true;
     }else {
       printf("Introduce un número valido. ");
       exit2=false;
     }
-    //collect[eleccion2] = cadena;
     for(int i = 0; i < MAX_VALUE; i++)
     {
       collect[eleccion2][i] = cadena[i];
@@ -137,7 +129,7 @@ do
 
 }*/
 
-void wificollector_display(){
+void wificollector_display(int** celdas){
 
 
 printf("¿indique el número de la celda que desea conocer su información (1-21): \n?");
