@@ -48,7 +48,6 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
 {
 
 bool exit2;
-//int collect[21][MAX_VALUE]; //Matriz que contendrá los distintos archivos con su contenido
 int** pcollect;
 int** collect;
 bool nosalir;
@@ -129,12 +128,11 @@ do
 
 }*/
 
-void wificollector_display(int** celdas){
-
-
-printf("¿indique el número de la celda que desea conocer su información (1-21): \n?");
-
-
-
+void wificollector_display(int** celdas)
+{
+  int numc; //Número de la celda de la cual queremos imprimir información
+  printf("Indique el número de la celda del que desea conocer su información (1-21): \n");
+  scanf("%d", &numc);
+  printf("%c", celdas[numc][5]);
 }
 

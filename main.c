@@ -4,17 +4,20 @@
 int main()
 {
   int** arraycollect;
-  switch(printmenu())
+  while(true)
   {
-    case 1:
-      if(wificollector_quit()==false)
-      {
-        main();
-      }
-      break;
-  case 2:
-    arraycollect = wificollector_collect();
-    break;
-  }
+    switch(printmenu())
+    {
+     case 1:
+       if(wificollector_quit()) {return 0;} //Termina el programa
+       break;
+      case 2:
+       arraycollect = wificollector_collect();
+       break;
+     case 10:
+       wificollector_display();
+        break;
+    }
+  } 
   return 0;
 }
