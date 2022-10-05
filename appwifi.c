@@ -43,13 +43,13 @@ bool wificollector_quit()
 
 
 }
+//int* getceldasusadas(int* target)
 
 int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q tiene dentro en un array
 {
 
 bool exit2;
-int** pcollect;
-int** collect;
+int** collect = 0;
 bool nosalir;
 char decision;
 int cadena[MAX_VALUE];
@@ -59,6 +59,7 @@ collect = malloc(sizeof(int*)*21);
 for(int it = 0; it < 21; it++)
 {
   collect[it] = malloc(sizeof(int*)*MAX_VALUE);
+  *(collect[it]) = 2;
 }
 do
 {
@@ -130,9 +131,26 @@ do
 
 void wificollector_display(int** celdas)
 {
+  inicio:
+  bool celdavacia = false;
+  char continuadisplay = '0';
   int numc; //Número de la celda de la cual queremos imprimir información
   printf("Indique el número de la celda del que desea conocer su información (1-21): \n");
   scanf("%d", &numc);
-  printf("%c", celdas[numc][5]);
+  if(celdas[numc][0] == 0) {printf("La celda que has seleccionado está vacía, elija otra\n");}
+  else 
+  {
+    for(int c = 0; c < MAX_VALUE; c++)
+    { 
+      printf("%c", celdas[numc][c]);
+    }
+    printf("\n");
+  }
+  printf("¿Desea imprimir información de otra celda? [S/N]");
+  getchar();
+  scanf("%c", &continuadisplay);
+  printf("\n");
+  continuadisplay = tolower(continuadisplay);
+  if(continuadisplay == 's') {goto inicio;}
 }
 
