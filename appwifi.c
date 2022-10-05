@@ -59,7 +59,6 @@ collect = malloc(sizeof(int*)*21);
 for(int it = 0; it < 21; it++)
 {
   collect[it] = malloc(sizeof(int*)*MAX_VALUE);
-  *(collect[it]) = 2;
 }
 do
 {
@@ -95,7 +94,8 @@ do
     for(int i = 0; i < MAX_VALUE; i++)
     {
       collect[eleccion2][i] = cadena[i];
-    }
+    } 
+    collect[0][eleccion2] = 1;
     fclose(fcelda);
   }while(exit2==false);
   printf("¿Desea añadir otro punto de acceso? [S/N]\n");
@@ -154,3 +154,19 @@ void wificollector_display(int** celdas)
   if(continuadisplay == 's') {goto inicio;}
 }
 
+void wificollector_display_all(int** celdas)
+{
+  for(int i = 1; i < 21; i++)
+  {
+    if(celdas[0][i] == 0) {continue;} //Si está vacía, pasamos a la siguiente
+    else
+    {
+      printf("Celda %d:\n\n", i);
+      for(int c = 0; c < MAX_VALUE; c++)
+      {
+        printf("%c", celdas[i][c]);
+      }
+      printf("\n\n");
+    }
+  }
+}

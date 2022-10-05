@@ -10,6 +10,7 @@ int main()
   {
     arraycollect[it] = malloc(sizeof(int*)*500);
     *(arraycollect[it]) = 0;
+    arraycollect[0][it] = 0;
   }
   while(true)
   {
@@ -24,6 +25,9 @@ int main()
      case 10:
        wificollector_display(arraycollect);
         break;
+     case 11:
+       wificollector_display_all(arraycollect);
+       break;
     }
   } 
   return 0;
