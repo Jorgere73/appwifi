@@ -1,16 +1,17 @@
 #include "appwifi.h"
+#include "menu.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
 int main()
 {
-  int** arraycollect;
-  arraycollect = malloc(sizeof(int*)*21);
+  int** arraycollect; //Array que contendrá el contenido de los archivos tras usar wificollector_collect()
+  arraycollect = malloc(sizeof(int*)*21); //Reservamos espacio en memoria equivalente a 21 punteros a ints, uno por celda
   for(int it = 0; it < 21; it++)
   {
-    arraycollect[it] = malloc(sizeof(int*)*500);
-    *(arraycollect[it]) = 0;
-    arraycollect[0][it] = 0;
+    arraycollect[it] = malloc(sizeof(int*)*500); //Reservamos espacio suficiente como para que quepa el texto de la celda entero
+    *(arraycollect[it]) = 0; //Primer elemento de cada celda será 0 hasta que sea modificado, para identificar celdas vacías
+    arraycollect[0][it] = 0; //arraycollect[0] reservado para identificar celdas vacías, ya que no corresponde a ningún archivo
   }
   while(true)
   {
