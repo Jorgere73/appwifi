@@ -18,7 +18,7 @@ int main()
     switch(printmenu())
     {
      case 1:
-       if(wificollector_quit()) {return 0;} //Termina el programa
+       if(wificollector_quit()) {goto exit;} //Termina el programa
        break;
       case 2:
        arraycollect = wificollector_collect();
@@ -31,5 +31,7 @@ int main()
        break;
     }
   } 
+  exit:
+  freearraymem(arraycollect);
   return 0;
 }
