@@ -1,3 +1,7 @@
 appwifi.o
 main
 main.o
+compile.sh
+menu.o
+.vscode
+
