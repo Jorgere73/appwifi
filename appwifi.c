@@ -133,3 +133,14 @@ void wificollector_display_all(int** celdas)
     }
   }
 }
+
+
+void freearraymem(int** arr)
+{
+  int length = sizeof(arr)/sizeof(int*);
+  for(int c = 0; c < length; c++)
+  {
+    free(arr[c]);
+  }
+  free(arr);
+}
