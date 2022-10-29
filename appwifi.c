@@ -42,9 +42,8 @@ do
       printf("%s\n", celda);
       fcelda = fopen(celda, "r");
       tamano = filesize(fcelda);
-      printf("%d",tamano);
-      collect[eleccion2] = realloc(collect[eleccion2], sizeof(int*)*tamano);
-      cadena = realloc(cadena, sizeof(int)*tamano);
+      collect[eleccion2] = realloc(collect[eleccion2], sizeof(int*)*tamano); //Cambia el tamano de la celda al del archivo
+      cadena = realloc(cadena, sizeof(int)*tamano); //Cambia el tamano de cadena al del archivo en cuestion
       if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
       else
       {    
@@ -72,7 +71,7 @@ do
   else if(decision == 'n') {nosalir= false;}
   else {printf("Introduzca una de las opciones dadas [S/N]\n");}
   } while (nosalir);
-  free(cadena);
+  free(cadena); //Liberamos memoria
   return collect;
 }
 
