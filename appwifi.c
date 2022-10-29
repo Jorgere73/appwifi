@@ -15,7 +15,7 @@ bool exit2;
 int** collect = 0;
 bool nosalir;
 char decision;
-int cadena[MAX_VALUE];
+int* cadena = malloc(sizeof(int)*MAX_VALUE);
 //char cadena[80];
 
 collect = malloc(sizeof(int*)*21);
@@ -30,6 +30,7 @@ do
     int eleccion2;
     char celda[]="cells/info_cell_";
     char celda2[21];
+    int tamano = 0;
     FILE *fcelda; //Archivo que contendrá la celda elegida
     printf("¿Qué celda desea recolectar? (1-21): \n");
     scanf("%d",&eleccion2);
@@ -40,6 +41,10 @@ do
       strcat(celda,".txt");
       printf("%s\n", celda);
       fcelda = fopen(celda, "r");
+      tamano = filesize(fcelda);
+      printf("%d",tamano);
+      collect[eleccion2] = realloc(collect[eleccion2], sizeof(int*)*tamano);
+      cadena = realloc(cadena, sizeof(int)*tamano);
       if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
       else
       {    
@@ -67,6 +72,7 @@ do
   else if(decision == 'n') {nosalir= false;}
   else {printf("Introduzca una de las opciones dadas [S/N]\n");}
   } while (nosalir);
+  free(cadena);
   return collect;
 }
 
@@ -143,4 +149,21 @@ void freearraymem(int** arr)
     free(arr[c]);
   }
   free(arr);
+}
+
+void aumentartamano(int** arr, int tamano)
+{
+  for(int i = 0; i < 21; i++)
+  {
+    arr[i] = realloc(arr[i], tamano);
+  }
+}
+
+int filesize(FILE* file)
+{
+  int sz;
+  fseek(file, 0L, SEEK_END); //Va hasta final del archivo y retorna posicion, así sabemos el tamaño
+  sz = ftell(file);
+  rewind(file);
+  return sz;
 }

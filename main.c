@@ -1,5 +1,6 @@
 #include "appwifi.h"
 #include "menu.h"
+#include "selectorbestworst.h"
 #include <stdbool.h>
 #include <stdlib.h>
 
