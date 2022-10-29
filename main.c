@@ -23,10 +23,16 @@ int main()
       case 2:
        arraycollect = wificollector_collect();
        break;
-     case 10:
+      case 4:
+       wificollector_select_best(arraycollect);
+       break;
+      /*case 5:
+       wificollector_select_worst();
+       break;*/
+      case 10:
        wificollector_display(arraycollect);
-        break;
-     case 11:
+       break;
+      case 11:
        wificollector_display_all(arraycollect);
        break;
     }
