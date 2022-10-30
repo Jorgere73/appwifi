@@ -29,9 +29,9 @@ int main()
       case 4:
        wificollector_select_best(arraycollect);
        break;
-      /*case 5:
-       wificollector_select_worst();
-       break;*/
+      case 5:
+       wificollector_select_worst(arraycollect);
+       break;
       case 10:
        wificollector_display(arraycollect);
        break;
