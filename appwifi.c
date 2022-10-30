@@ -42,7 +42,6 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
         tamano = filesize(fcelda);
         collect[eleccion2] = realloc(collect[eleccion2], sizeof(int*)*tamano); //Cambia el tamano de la celda al del archivo
         collect[22][eleccion2] = tamano;
-        printf("%d", collect[22][2]);
         cadena = realloc(cadena, sizeof(int*)*tamano); //Cambia el tamano de cadena al del archivo en cuestion
 
         if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
@@ -66,6 +65,7 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
       } 
       collect[0][eleccion2] = 1;
       fclose(fcelda);
+
     }while(exit2==false);
     printf("¿Desea añadir otro punto de acceso? [S/N]\n");
     scanf("%s", &decision); decision = tolower(decision);
