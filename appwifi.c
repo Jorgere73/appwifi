@@ -58,7 +58,6 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
         printf("Introduce un número valido. ");
         exit2=false;
       }
-      //cadena = recortarcelda(cadena);
       for(int i = 0; i < MAX_VALUE; i++)
       {
         collect[eleccion2][i] = cadena[i]; //De cadena, transferimos el contenido a la matriz collect
