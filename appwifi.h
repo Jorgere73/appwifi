@@ -10,5 +10,5 @@ void wificollector_display_all(int** celdas); //Imprime todas las celdas guardad
 void freearraymem(int** arr); //Libera memoria para matrices
 void aumentartamano(int** arr, int tamano); //Cambia el tamano de un array
 int filesize(FILE* file); //Devuelve el tamano del archivo
-//int* recortarcelda(int* celda) //Recorta información de la celda e imprime los datos únicamente
+int* recortarcelda(int* celda) //Recorta información de la celda e imprime los datos únicamente
 #endif

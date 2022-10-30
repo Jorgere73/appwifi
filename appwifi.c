@@ -49,8 +49,8 @@ do
       {    
         for(int cont = 0; !feof(fcelda); cont++)
         {
-            int leido = fgetc(fcelda);
-            cadena[cont] = leido; //Leemos archivo, y transferimos contenido a cadena
+          int leido = fgetc(fcelda);
+          cadena[cont] = leido; //Leemos archivo, y transferimos contenido a cadena
         }
       }
       exit2=true;
@@ -101,7 +101,6 @@ do
 void wificollector_display(int** celdas)
 {
   inicio:
-  bool celdavacia = false;
   char continuadisplay = '0';
   int numc; //Número de la celda de la cual queremos imprimir información
   printf("Indique el número de la celda del que desea conocer su información (1-21): \n");
@@ -144,8 +143,7 @@ void wificollector_display_all(int** celdas)
 
 void freearraymem(int** arr)
 {
-  int length = sizeof(arr)/sizeof(int*);
-  for(int c = 0; c < length; c++)
+  for(int c = 0; c < 21; c++)
   {
     free(arr[c]);
   }
@@ -169,9 +167,8 @@ int filesize(FILE* file)
   return sz;
 }
 
-/*int* recortarcelda(int* celdas)
+int* recortarcelda(int* celdas)
 {
-  celdas = strtok(celdas, ":");
-  printf("%d", celdas);
+  celdas = strtok((int*)celdas, ":");
   return celdas;
-}*/
+}

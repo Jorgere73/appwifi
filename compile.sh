@@ -1,5 +1,5 @@
 #!/bin/bash
 
-gcc -c *.c
-gcc *.o -o main -Wall
+gcc -c *.c -Wall
+gcc *.o -o main 
 ./main

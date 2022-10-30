@@ -27,7 +27,6 @@ int printmenu()
 bool wificollector_quit()
 {
   char exit; //S o N
-  bool salida;
   do
   {
     printf("¿Está seguro de que quiere salir? [S/N]\n");
