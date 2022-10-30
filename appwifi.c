@@ -6,8 +6,6 @@
 
 #define MAX_VALUE 500
 
-//int* getceldasusadas(int* target)
-
 int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q tiene dentro en un array
 {
 
@@ -36,21 +34,23 @@ do
     scanf("%d",&eleccion2);
     if(eleccion2>=1 && eleccion2<=21)
     {
-      sprintf(celda2,"%u",eleccion2);//concatenamos para tener la celda elegida
+      sprintf(celda2,"%u",eleccion2); //Concatenamos para tener la celda elegida
       strcat(celda,celda2);
       strcat(celda,".txt");
       printf("%s\n", celda);
-      fcelda = fopen(celda, "r");
+      fcelda = fopen(celda, "r"); //Abrimos archivo en modo lectura
+
       tamano = filesize(fcelda);
       collect[eleccion2] = realloc(collect[eleccion2], sizeof(int*)*tamano); //Cambia el tamano de la celda al del archivo
       cadena = realloc(cadena, sizeof(int)*tamano); //Cambia el tamano de cadena al del archivo en cuestion
+
       if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
       else
       {    
         for(int cont = 0; !feof(fcelda); cont++)
         {
             int leido = fgetc(fcelda);
-            cadena[cont] = leido;
+            cadena[cont] = leido; //Leemos archivo, y transferimos contenido a cadena
         }
       }
       exit2=true;
@@ -58,9 +58,10 @@ do
       printf("Introduce un número valido. ");
       exit2=false;
     }
+    //cadena = recortarcelda(cadena);
     for(int i = 0; i < MAX_VALUE; i++)
     {
-      collect[eleccion2][i] = cadena[i];
+      collect[eleccion2][i] = cadena[i]; //De cadena, transferimos el contenido a la matriz collect
     } 
     collect[0][eleccion2] = 1;
     fclose(fcelda);
@@ -139,6 +140,7 @@ void wificollector_display_all(int** celdas)
   }
 }
 
+//----------------------------FUNCIONES PROPIAS-----------------------------
 
 void freearraymem(int** arr)
 {
@@ -166,3 +168,10 @@ int filesize(FILE* file)
   rewind(file);
   return sz;
 }
+
+/*int* recortarcelda(int* celdas)
+{
+  celdas = strtok(celdas, ":");
+  printf("%d", celdas);
+  return celdas;
+}*/
