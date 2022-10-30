@@ -8,72 +8,73 @@
 
 int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q tiene dentro en un array
 {
+  bool exit2;
+  int** collect = 0;
+  bool nosalir;
+  char decision;
+  int* cadena = malloc(sizeof(int)*MAX_VALUE);
+  //char cadena[80];
 
-bool exit2;
-int** collect = 0;
-bool nosalir;
-char decision;
-int* cadena = malloc(sizeof(int)*MAX_VALUE);
-//char cadena[80];
+  collect = malloc(sizeof(int*)*22);
+  for(int it = 0; it < 22; it++)
+  {
+    collect[it] = malloc(sizeof(int*)*MAX_VALUE);
+  }
 
-collect = malloc(sizeof(int*)*21);
-for(int it = 0; it < 21; it++)
-{
-  collect[it] = malloc(sizeof(int*)*MAX_VALUE);
-}
-do
-{
   do
   {
-    int eleccion2;
-    char celda[]="cells/info_cell_";
-    char celda2[21];
-    int tamano = 0;
-    FILE *fcelda; //Archivo que contendrá la celda elegida
-    printf("¿Qué celda desea recolectar? (1-21): \n");
-    scanf("%d",&eleccion2);
-    if(eleccion2>=1 && eleccion2<=21)
+    do
     {
-      sprintf(celda2,"%u",eleccion2); //Concatenamos para tener la celda elegida
-      strcat(celda,celda2);
-      strcat(celda,".txt");
-      printf("%s\n", celda);
-      fcelda = fopen(celda, "r"); //Abrimos archivo en modo lectura
+      int eleccion2;
+      char celda[]="cells/info_cell_";
+      char celda2[21];
+      int tamano = 0;
+      FILE *fcelda; //Archivo que contendrá la celda elegida
+      printf("¿Qué celda desea recolectar? (1-21): \n");
+      scanf("%d",&eleccion2);
+      if(eleccion2>=1 && eleccion2<=21)
+      {
+        sprintf(celda2,"%u",eleccion2); //Concatenamos para tener la celda elegida
+        strcat(celda,celda2);
+        strcat(celda,".txt");
+        printf("%s\n", celda);
+        fcelda = fopen(celda, "r"); //Abrimos archivo en modo lectura
 
-      tamano = filesize(fcelda);
-      collect[eleccion2] = realloc(collect[eleccion2], sizeof(int*)*tamano); //Cambia el tamano de la celda al del archivo
-      cadena = realloc(cadena, sizeof(int)*tamano); //Cambia el tamano de cadena al del archivo en cuestion
+        tamano = filesize(fcelda);
+        collect[eleccion2] = realloc(collect[eleccion2], sizeof(int*)*tamano); //Cambia el tamano de la celda al del archivo
+        collect[22][eleccion2] = tamano;
+        cadena = realloc(cadena, sizeof(int)*tamano); //Cambia el tamano de cadena al del archivo en cuestion
 
-      if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
-      else
-      {    
-        for(int cont = 0; !feof(fcelda); cont++)
-        {
-          int leido = fgetc(fcelda);
-          cadena[cont] = leido; //Leemos archivo, y transferimos contenido a cadena
+        if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
+        else
+        {    
+          for(int cont = 0; !feof(fcelda); cont++)
+          {
+            int leido = fgetc(fcelda);
+            cadena[cont] = leido; //Leemos archivo, y transferimos contenido a cadena
+          }
         }
+        exit2=true;
+      }else {
+        printf("Introduce un número valido. ");
+        exit2=false;
       }
-      exit2=true;
-    }else {
-      printf("Introduce un número valido. ");
-      exit2=false;
-    }
-    //cadena = recortarcelda(cadena);
-    for(int i = 0; i < MAX_VALUE; i++)
-    {
-      collect[eleccion2][i] = cadena[i]; //De cadena, transferimos el contenido a la matriz collect
-    } 
-    collect[0][eleccion2] = 1;
-    fclose(fcelda);
-  }while(exit2==false);
-  printf("¿Desea añadir otro punto de acceso? [S/N]\n");
-  scanf("%s", &decision); decision = tolower(decision);
-  if(decision == 's') {nosalir= true;}
-  else if(decision == 'n') {nosalir= false;}
-  else {printf("Introduzca una de las opciones dadas [S/N]\n");}
-  } while (nosalir);
-  free(cadena); //Liberamos memoria
-  return collect;
+      //cadena = recortarcelda(cadena);
+      for(int i = 0; i < MAX_VALUE; i++)
+      {
+        collect[eleccion2][i] = cadena[i]; //De cadena, transferimos el contenido a la matriz collect
+      } 
+      collect[0][eleccion2] = 1;
+      fclose(fcelda);
+    }while(exit2==false);
+    printf("¿Desea añadir otro punto de acceso? [S/N]\n");
+    scanf("%s", &decision); decision = tolower(decision);
+    if(decision == 's') {nosalir= true;}
+    else if(decision == 'n') {nosalir= false;}
+    else {printf("Introduzca una de las opciones dadas [S/N]\n");}
+    } while (nosalir);
+    free(cadena); //Liberamos memoria
+    return collect;
 }
 
 /*void wificollector_show_data_one_network(){
@@ -167,8 +168,3 @@ int filesize(FILE* file)
   return sz;
 }
 
-int* recortarcelda(int* celdas)
-{
-  celdas = strtok((int*)celdas, ":");
-  return celdas;
-}
