@@ -25,7 +25,6 @@ int main()
        break;
       case 2:
        arraycollect = wificollector_collect();
-       printf("%d", arraycollect[22][2]);
        break;
       case 4:
        wificollector_select_best(arraycollect);

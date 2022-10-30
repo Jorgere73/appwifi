@@ -17,32 +17,39 @@ void wificollector_select_best(int** source) //source == arraycollect de main
 int returnquality(int* str, int size, int cell)
 {
     char* ptr;
+    int lineas;
+    int pos;
     char* charcell = malloc(sizeof(char)*4);
     sprintf(charcell,"%u",cell);
     char s1[] = "Cell ";
+    //char quality[];
     strcat(s1, charcell);
 
-    /*char* string = malloc(size*sizeof(char*));
+    char* string = calloc(size, sizeof(char*));
     for(int i = 0; i < size; i++)
     {
-        string[i] = str[i] + '0';
+        string[i] = str[i];
     }
-*/
-    //char** allstr = splitstring(string, s1);
-    //printf(allstr[0]);
-    //free(string);
+    char** allstr = splitstring(string, "\n", &lineas);
+    for(int i = 6; i <= lineas; i+=9) //Primer Quality está en línea 6, y después va de 9 en 9. Lineas indica la cantidad de espacios que tiene el array 2d
+    {
+        ptr = strstr(allstr[i], "="); //Retorna un puntero sobre el =
+        pos = (int)(ptr - allstr[i]); //Conseguimos la posición del = en el texto
+        
+    }
+    free(string);
     return 0;
 }
 
-char** splitstring(char* str, char* div)
+char** splitstring(char* str, char* div, int* outputsize)
 {
     char* sstring = strtok(str, div);
     int numsstr = 0;
 
-    char** substr = malloc(sizeof(char*)*5);
+    char** substr = calloc(50, sizeof(char*));
     for(int i = 0; i < 5; i++)
     {
-        substr[i] = malloc(250*sizeof(char*));
+        substr[i] = calloc(100, sizeof(char*));
     }
 
     while(sstring != NULL) //Si no hay más delimitadores, parar
@@ -51,5 +58,6 @@ char** splitstring(char* str, char* div)
         sstring = strtok(NULL, div); //Hace divisiones hasta el siguiente limitador
         numsstr++;
     }
+    *outputsize = numsstr; //Accedemos a la variable a la que apuntamos para grabar en ella la cantidad de lineas en las que hemos dividido el texto
     return substr;
 }
