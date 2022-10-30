@@ -9,14 +9,13 @@
 int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q tiene dentro en un array
 {
   bool exit2;
-  int** collect = 0;
+  int** collect;
   bool nosalir;
   char decision;
   int* cadena = malloc(sizeof(int)*MAX_VALUE);
-  //char cadena[80];
 
   collect = malloc(sizeof(int*)*22);
-  for(int it = 0; it < 22; it++)
+  for(int it = 0; it <= 22; it++)
   {
     collect[it] = malloc(sizeof(int*)*MAX_VALUE);
   }
@@ -43,7 +42,8 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
         tamano = filesize(fcelda);
         collect[eleccion2] = realloc(collect[eleccion2], sizeof(int*)*tamano); //Cambia el tamano de la celda al del archivo
         collect[22][eleccion2] = tamano;
-        cadena = realloc(cadena, sizeof(int)*tamano); //Cambia el tamano de cadena al del archivo en cuestion
+        printf("%d", collect[22][2]);
+        cadena = realloc(cadena, sizeof(int*)*tamano); //Cambia el tamano de cadena al del archivo en cuestion
 
         if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
         else
@@ -144,7 +144,7 @@ void wificollector_display_all(int** celdas)
 
 void freearraymem(int** arr)
 {
-  for(int c = 0; c < 21; c++)
+  for(int c = 0; c <= 22; c++)
   {
     free(arr[c]);
   }
@@ -153,7 +153,7 @@ void freearraymem(int** arr)
 
 void aumentartamano(int** arr, int tamano)
 {
-  for(int i = 0; i < 21; i++)
+  for(int i = 0; i <= 21; i++)
   {
     arr[i] = realloc(arr[i], tamano);
   }
