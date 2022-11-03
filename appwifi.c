@@ -31,6 +31,7 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
       FILE *fcelda; //Archivo que contendrá la celda elegida
       printf("¿Qué celda desea recolectar? (1-21): \n");
       scanf("%d",&eleccion2);
+      printf("%d", eleccion2);
       if(eleccion2>=1 && eleccion2<=21)
       {
         sprintf(celda2,"%u",eleccion2); //Concatenamos para tener la celda elegida
@@ -53,18 +54,18 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
             cadena[cont] = leido; //Leemos archivo, y transferimos contenido a cadena
           }
         }
+
+        for(int i = 0; i < MAX_VALUE; i++)
+        {
+          collect[eleccion2][i] = cadena[i]; //De cadena, transferimos el contenido a la matriz collect
+        } 
+        collect[0][eleccion2] = 1;
         exit2=true;
       }else {
         printf("Introduce un número valido. ");
         exit2=false;
       }
-      for(int i = 0; i < MAX_VALUE; i++)
-      {
-        collect[eleccion2][i] = cadena[i]; //De cadena, transferimos el contenido a la matriz collect
-      } 
-      collect[0][eleccion2] = 1;
       fclose(fcelda);
-
     }while(exit2==false);
     printf("¿Desea añadir otro punto de acceso? [S/N]\n");
     scanf("%s", &decision); decision = tolower(decision);
@@ -72,6 +73,7 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
     else if(decision == 'n') {nosalir= false;}
     else {printf("Introduzca una de las opciones dadas [S/N]\n");}
     } while (nosalir);
+    
     free(cadena); //Liberamos memoria
     return collect;
 }
