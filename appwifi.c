@@ -12,12 +12,12 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
   int** collect;
   bool nosalir;
   char decision;
-  int* cadena = malloc(sizeof(int)*MAX_VALUE);
+  int* cadena = (int*)calloc(sizeof(int*),MAX_VALUE);
 
-  collect = malloc(sizeof(int*)*22);
+  collect = (int**) calloc(sizeof(int*),22);
   for(int it = 0; it <= 22; it++)
   {
-    collect[it] = malloc(sizeof(int*)*MAX_VALUE);
+    collect[it] = (int*)calloc(sizeof(int),MAX_VALUE);
   }
 
   do
@@ -41,7 +41,7 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
         tamano = filesize(fcelda);
         collect[eleccion2] = realloc(collect[eleccion2], sizeof(int*)*tamano); //Cambia el tamano de la celda al del archivo
         collect[22][eleccion2] = tamano;
-        cadena = realloc(cadena, sizeof(int*)*tamano); //Cambia el tamano de cadena al del archivo en cuestion
+        //cadena = realloc(cadena, sizeof(int*)*tamano); //Cambia el tamano de cadena al del archivo en cuestion
 
         if(fcelda == NULL) {printf("Error al cargar el archivo\n");}
         else
@@ -60,8 +60,9 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
         collect[0][eleccion2] = 1;
         exit2=true;
       }else {
-        printf("Introduce un número valido. ");
+        printf("Introduce un número valido.\n");
         exit2=false;
+        continue;
       }
       fclose(fcelda);
     }while(exit2==false);
@@ -72,7 +73,7 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
     else {printf("Introduzca una de las opciones dadas [S/N]\n");}
     } while (nosalir);
     
-    free(cadena); //Liberamos memoria
+    free(cadena);//Liberamos memoria
     return collect;
 }
 
@@ -124,7 +125,7 @@ void wificollector_display(int** celdas)
 
 void wificollector_display_all(int** celdas)
 {
-  for(int i = 1; i < 21; i++)
+  for(int i = 1; i <= 21; i++)
   {
     if(celdas[0][i] == 0) {continue;} //Si está vacía, pasamos a la siguiente
     else
@@ -164,6 +165,7 @@ int filesize(FILE* file)
   fseek(file, 0L, SEEK_END); //Va hasta final del archivo y retorna posicion, así sabemos el tamaño
   sz = ftell(file);
   rewind(file);
+  printf("El valor del fichero es de %d y lo aumentamos hasta %ld\n",sz,sz+sizeof(char*)*10);
   return sz;
 }
 
