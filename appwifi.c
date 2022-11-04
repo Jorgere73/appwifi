@@ -31,13 +31,11 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
       FILE *fcelda; //Archivo que contendrá la celda elegida
       printf("¿Qué celda desea recolectar? (1-21): \n");
       scanf("%d",&eleccion2);
-      printf("%d", eleccion2);
       if(eleccion2>=1 && eleccion2<=21)
       {
         sprintf(celda2,"%u",eleccion2); //Concatenamos para tener la celda elegida
         strcat(celda,celda2);
         strcat(celda,".txt");
-        printf("%s\n", celda);
         fcelda = fopen(celda, "r"); //Abrimos archivo en modo lectura
 
         tamano = filesize(fcelda);
