@@ -4,7 +4,16 @@
 #include <stdbool.h>
 
 
-int** wificollector_collect(); //Guarda contenido de un archivo en un array 
+struct nodo
+{
+    char *info;
+    struct nodo *prox;
+    int num;
+};
+typedef struct nodo lista;
+
+
+lista* wificollector_collect(); //Guarda contenido de un archivo en un array 
 void wificollector_display(int** celdas); //Imprime la celda elegida por el usuario, guardada en el array
 void wificollector_display_all(int** celdas); //Imprime todas las celdas guardadas 
 void freearraymem(int** arr); //Libera memoria para matrices

@@ -2,42 +2,36 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include "appwifi.h"
 
 /*ME CREO MI LISTA
 cada nodo va a tener una wifi diferente no va a tener un archivo .cell*/
 
-struct nodo
-{
-    char *info;
-    struct nodo *prox;
-};
-typedef struct nodo lista;
 
 //para crear nodos y meter la información dentro
-struct nodo *crear_nodo(char *info1)
+struct nodo *crear_nodo(char *info1, int tamano, int numArchivo)
 {
-    struct nodo *nodo_nuevo = (struct nodo *)malloc(sizeof(struct nodo));
-
+    struct nodo *nodo_nuevo = (lista*) calloc(sizeof(lista*),1);
+    nodo_nuevo->info = (char*)calloc(sizeof(int), tamano);
     nodo_nuevo->info = info1;
     nodo_nuevo->prox = NULL;
+    nodo_nuevo->num = numArchivo;
 
     return nodo_nuevo;
 }
-lista *wificollector_collect()
+lista* wificollector_collect()
 {
-    lista *milista = calloc(sizeof(lista *), 48); //Reservo memoria para cada posición de cada wifi 1wifi 1nodo.
-
-    for (int it = 0; it <= 48; it++)
-    {
-        milista->info = (char *)calloc(sizeof(int), 500);
-    }
+    lista raiz;
+    raiz.info = (char *)calloc(sizeof(int), 500); //Nodo a añadirse
+    lista* iterator = &raiz;
 
     bool exit2;
     bool nosalir;
     char decision;
-    //mi collec==milista
+    int numchar; //Numero de caracteres en un archivo, para hacer realloc
+    //mi collec==raiz
 
-    char *infoA = (char *)calloc(sizeof(int), 500);
+    
 
     do
     {
@@ -62,14 +56,19 @@ lista *wificollector_collect()
                     printf("Error al cargar el archivo\n");
                 }
                 else
+                {
+                    char *infoA = (char *)calloc(sizeof(int), 500);
                     for (int cont = 0; !feof(fcelda); cont++)
                     {
                         int leido = fgetc(fcelda);
                         infoA[cont] = leido; //Leemos archivo, y transferimos contenido a cadena
-                        printf("Impresión numero %d:\n%s", cont, infoA);
+                        numchar = cont;
                     }
-                    printf("Estoy vacio:\ndd%s", infoA);
-                    milista->prox = crear_nodo(infoA); //creamos el nodo y metemos la información de las wifis
+                    iterator->prox = crear_nodo(infoA, numchar, eleccion2); //creamos el nodo y metemos la información de las wifis
+                    printf("%s\n---------------------------\n", infoA);
+                    printf("%s",iterator->prox->info);
+                    printf("%d", iterator->prox->num);
+                    free(infoA);
                                                        // printf("Estoy vacio:\ndd%s", infoA);
                     /*COMPROBAMOS QUE ESTAMOS METIENDO BIEN LA INFORMACION
                     printf("tonto");
@@ -94,7 +93,7 @@ lista *wificollector_collect()
         if (decision == 's' || decision == 'S')
         {
             nosalir = true;
-            milista = milista->prox;
+            iterator = iterator->prox;
         }
         else if (decision == 'n' || decision == 'N')
         {
@@ -105,7 +104,8 @@ lista *wificollector_collect()
             printf("Introduzca una de las opciones dadas [S/N]\n");
         }
     } while (nosalir);
-    return milista;
+    iterator = &raiz;
+    return iterator;
 }
 
 /*
