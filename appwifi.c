@@ -62,11 +62,8 @@ lista *wificollector_collect()
                     printf("Error al cargar el archivo\n");
                 }
                 else
-                {
-
                     for (int cont = 0; !feof(fcelda); cont++)
                     {
-                      
                         int leido = fgetc(fcelda);
                         infoA[cont] = leido; //Leemos archivo, y transferimos contenido a cadena
                         printf("Impresión numero %d:\n%s", cont, infoA);
