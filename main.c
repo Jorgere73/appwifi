@@ -8,6 +8,7 @@
 
 int main()
 {
+  bool exit = false;
   int** arraycollect; //Array que contendrá el contenido de los archivos tras usar wificollector_collect()
   arraycollect = (int**)calloc(22, sizeof(int*)); //Reservamos espacio en memoria equivalente a 21 punteros a ints, uno por celda
   for(int it = 0; it <= 22; it++)
@@ -16,12 +17,12 @@ int main()
     *(arraycollect[it]) = 0; //Primer elemento de cada celda será 0 hasta que sea modificado, para identificar celdas vacías
     arraycollect[0][it] = 0; //arraycollect[0] reservado para identificar celdas vacías, ya que no corresponde a ningún archivo
   }
-  while(true)
+  while(!exit)
   {
     switch(printmenu())
     {
      case 1:
-       if(wificollector_quit()) {goto exit;} //Termina el programa
+       if(wificollector_quit()) {exit = true;} //Termina el programa
        break;
       case 2:
        arraycollect = wificollector_collect();
@@ -40,7 +41,6 @@ int main()
        break;
     }
   } 
-  exit:
   return 0;
   freearraymem(arraycollect);
   

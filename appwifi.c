@@ -101,26 +101,27 @@ int** wificollector_collect()//tenemos q abrir los archivos y recolectar lo q ti
 
 void wificollector_display(int** celdas)
 {
-  inicio:
   char continuadisplay = '0';
-  int numc; //Número de la celda de la cual queremos imprimir información
-  printf("Indique el número de la celda del que desea conocer su información (1-21): \n");
-  scanf("%d", &numc);
-  if(celdas[numc][0] == 0) {printf("La celda que has seleccionado está vacía, elija otra\n");}
-  else 
+  do
   {
-    for(int c = 0; c < MAX_VALUE; c++)
-    { 
-      printf("%c", celdas[numc][c]);
+    int numc; //Número de la celda de la cual queremos imprimir información
+    printf("Indique el número de la celda del que desea conocer su información (1-21): \n");
+    scanf("%d", &numc);
+    if(celdas[0][numc] == 0) {printf("La celda que has seleccionado está vacía, elija otra\n");}
+    else 
+    {
+      for(int c = 0; c < MAX_VALUE; c++)
+      { 
+        printf("%c", celdas[numc][c]);
+      }
+      printf("\n");
     }
+    printf("¿Desea imprimir información de otra celda? [S/N]");
+    getchar();
+    scanf("%c", &continuadisplay);
     printf("\n");
-  }
-  printf("¿Desea imprimir información de otra celda? [S/N]");
-  getchar();
-  scanf("%c", &continuadisplay);
-  printf("\n");
-  continuadisplay = tolower(continuadisplay);
-  if(continuadisplay == 's') {goto inicio;}
+    continuadisplay = tolower(continuadisplay);
+  }while(continuadisplay == 's');
 }
 
 void wificollector_display_all(int** celdas)
@@ -165,7 +166,6 @@ int filesize(FILE* file)
   fseek(file, 0L, SEEK_END); //Va hasta final del archivo y retorna posicion, así sabemos el tamaño
   sz = ftell(file);
   rewind(file);
-  printf("El valor del fichero es de %d y lo aumentamos hasta %ld\n",sz,sz+sizeof(char*)*10);
   return sz;
 }
 
