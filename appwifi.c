@@ -20,6 +20,7 @@ struct nodo *crear_nodo(char *info1, int tamano, int numArchivo)
     nodo_nuevo->info = info1;
     nodo_nuevo->prox = NULL;
     nodo_nuevo->num = numArchivo;
+    nodo_nuevo->tamanoarch = tamano;
 
     return nodo_nuevo;
 }

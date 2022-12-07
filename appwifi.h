@@ -9,6 +9,7 @@ struct nodo
     char *info;
     struct nodo *prox;
     int num;
+    int tamanoarch;
 };
 typedef struct nodo lista;
 

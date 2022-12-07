@@ -37,10 +37,10 @@ int main()
        printf("%s", listatotal->prox->info);
        break;
       case 4:
-       //wificollector_select_best(arraycollect)
+       wificollector_select_best(raiz);
        break;
       case 5:
-       //wificollector_select_worst(arraycollect);
+       wificollector_select_worst(raiz);
        break;
       case 10:
        //printf("%s", raiz.prox->prox->info);

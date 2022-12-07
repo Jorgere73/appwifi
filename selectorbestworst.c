@@ -6,17 +6,22 @@
 
 #define MAX_VALUE 500
 
-void wificollector_select_best(int** source) //source == arraycollect de main
+void wificollector_select_best(lista nodos) //source == arraycollect de main
 {
+    lista* iterator = &nodos;
     int interiorcells[21]; //Guarda el número de celda interior correspondiente a la calidad más alta dentro de un archivo
     int collected[21]; //Guarda los valores de calidad más alta de cada archivo en source
     int size = 0;
 
     for(int i = 0; i < 21; i++)
     {
-        collected[i] = 0; //Para que al sacar la red con mayor calidad no haya problema con las celdas vacías
-        if(source[0][i] == 0) {continue;}
-        collected[i] = returnquality(source[i], source[22][i], i, interiorcells, true);
+        collected[i] = 0;
+    }
+    while(iterator->prox != NULL)
+    {
+        if(iterator->prox == NULL) {break;}
+        collected[iterator->prox->num] = returnquality(iterator->prox->info, iterator->prox->num, iterator->prox->tamanoarch, interiorcells, true);
+        iterator = iterator->prox;
     }
 
     int max = collected[0];
@@ -25,13 +30,18 @@ void wificollector_select_best(int** source) //source == arraycollect de main
     {
         if(collected[i] > max) {max = collected[i]; count = i;}
     }
-    char* string = calloc(source[22][count], sizeof(char*));
+    char* string;
 
-    for(int i = 0; i < source[22][count]; i++)
+    iterator = &nodos;
+    while(iterator->prox != NULL)
     {
-        string[i] = source[count][i];
+        if(iterator->prox->num == count)
+        {
+            string = iterator->prox->info;
+            break;
+        }
+        iterator = iterator->prox;
     }
-
     printf("La mejor conexion tiene calidad %d/70", max); printf(", es del archivo %d", count); printf(" y celda %d:\n", interiorcells[count]);
     char** bestqdetails = splitstring(string, "\n", &size);
     for(int i = 1 + (9*interiorcells[count]); i < 1 + (9*interiorcells[count]) + 7; i++)
@@ -42,7 +52,7 @@ void wificollector_select_best(int** source) //source == arraycollect de main
     free(string);
 }
 
-void wificollector_select_worst(int** source) //source == arraycollect de main
+/*void wificollector_select_worst(int** source) //source == arraycollect de main
 {
     int interiorcells[21]; //Guarda el número de celda interior correspondiente a la calidad más alta dentro de un archivo
     int collected[21]; //Guarda los valores de calidad más alta de cada archivo en source
@@ -77,22 +87,70 @@ void wificollector_select_worst(int** source) //source == arraycollect de main
     free(worstqdetails);
     free(string);
 }
+*/
+
+void wificollector_select_worst(lista nodos) //source == arraycollect de main
+{
+    lista* iterator = &nodos;
+    int interiorcells[21]; //Guarda el número de celda interior correspondiente a la calidad más alta dentro de un archivo
+    int collected[21]; //Guarda los valores de calidad más alta de cada archivo en source
+    int size = 0;
+
+    for(int i = 0; i < 21; i++)
+    {
+        collected[i] = 80;
+    }
+    while(iterator->prox != NULL)
+    {
+        if(iterator->prox == NULL) {break;}
+        collected[iterator->prox->num] = returnquality(iterator->prox->info, iterator->prox->num, iterator->prox->tamanoarch, interiorcells, false);
+        iterator = iterator->prox;
+    }
+
+    int min = 70;
+    int count = 0;
+    for(int i = 1; i < 21; i++)
+    {
+        if(collected[i] < min) {min = collected[i]; count = i;}
+    }
+    char* string;
+
+    iterator = &nodos;
+    while(iterator->prox != NULL)
+    {
+        if(iterator->prox->num == count)
+        {
+            string = iterator->prox->info;
+            break;
+        }
+        iterator = iterator->prox;
+    }
+    printf("La peor conexion tiene calidad %d/70", min); printf(", es del archivo %d", count); printf(" y celda %d:\n", interiorcells[count]);
+    char** worstqdetails = splitstring(string, "\n", &size);
+    for(int i = 1 + (9*interiorcells[count]); i < 1 + (9*interiorcells[count]) + 7; i++)
+    {
+        printf("%s\n", worstqdetails[i]);
+    }
+    free(worstqdetails);
+    free(string);
+}
 
 
-int returnquality(int* str, int size, int numarchivo, int* cell, bool best)
+int returnquality(char* str, int numarchivo, int size, int* cell, bool best)
 {
     char* ptr;
+    char* str1 = (char*) calloc(size, sizeof(char));
+    for(int i =0; i < size; i++)
+    {
+        str1[i] = str[i];
+    } //Para evitar que en splitstring se modifique str, el original
+
     int quality[5]; for(int j=0;j<5;j++){quality[j]=0;}
     int lineas;
     int pos;
     int numceldas = 0;
 
-    char* string = calloc(size, sizeof(char*));
-    for(int i = 0; i < size; i++)
-    {
-        string[i] = str[i];
-    }
-    char** allstr = splitstring(string, "\n", &lineas);
+    char** allstr = splitstring(str1, "\n", &lineas);
     for(int i = 6, j = 0; i < lineas; i+=9, j++, numceldas++) //Primer Quality está en línea 6, y después va de 9 en 9. Lineas indica la cantidad de espacios que tiene el array 2d
     {
         ptr = strstr(allstr[i], "="); //Retorna un puntero sobre el =
@@ -103,7 +161,6 @@ int returnquality(int* str, int size, int numarchivo, int* cell, bool best)
     }
     //printf("%d\n", quality[3]);
     //-----------------------FREE------------------
-    free(string);
     free(allstr);
     //for(int i = 0; i < 5; i++) {free(allstr[i]);}
     //---------------------------------------------
