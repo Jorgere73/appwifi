@@ -36,5 +36,4 @@ bool wificollector_quit()
     else {printf("Introduzca una de las opciones dadas [S/N]\n");}
   } while(true);
 
-
 }

@@ -34,7 +34,7 @@ int main()
        listatotal = wificollector_collect();
        break;
       case 4:
-       //wificollector_select_best(arraycollect);
+       //wificollector_select_best(arraycollect)
        break;
       case 5:
        //wificollector_select_worst(arraycollect);

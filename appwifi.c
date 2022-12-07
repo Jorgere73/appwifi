@@ -9,6 +9,7 @@ cada nodo va a tener una wifi diferente no va a tener un archivo .cell*/
 
 
 //para crear nodos y meter la información dentro
+
 struct nodo *crear_nodo(char *info1, int tamano, int numArchivo)
 {
     struct nodo *nodo_nuevo = (lista*) calloc(sizeof(lista*),1);
@@ -22,7 +23,7 @@ struct nodo *crear_nodo(char *info1, int tamano, int numArchivo)
 lista* wificollector_collect()
 {
     lista raiz;
-    raiz.info = (char *)calloc(sizeof(int), 500); //Nodo a añadirse
+    raiz.info = (char*)calloc(sizeof(int), 500); //Nodo a añadirse
     lista* iterator = &raiz;
 
     bool exit2;
@@ -30,8 +31,6 @@ lista* wificollector_collect()
     char decision;
     int numchar; //Numero de caracteres en un archivo, para hacer realloc
     //mi collec==raiz
-
-    
 
     do
     {
@@ -65,17 +64,7 @@ lista* wificollector_collect()
                         numchar = cont;
                     }
                     iterator->prox = crear_nodo(infoA, numchar, eleccion2); //creamos el nodo y metemos la información de las wifis
-                    printf("%s\n---------------------------\n", infoA);
-                    printf("%s",iterator->prox->info);
-                    printf("%d", iterator->prox->num);
                     free(infoA);
-                                                       // printf("Estoy vacio:\ndd%s", infoA);
-                    /*COMPROBAMOS QUE ESTAMOS METIENDO BIEN LA INFORMACION
-                    printf("tonto");
-                    while (infoA != NULL)
-                    {
-                        printf("%s", infoA);
-                    }*/
                 }
                 exit2 = true;
             }
