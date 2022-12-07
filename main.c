@@ -21,7 +21,8 @@ int main()
   }
 */
 
-  lista *listatotal; 
+  lista *listatotal = crear_nodo("raiz", 4, 25); //= (lista*)malloc(sizeof(lista)); 
+  lista raiz;
 
   while(!exit)
   {
@@ -32,6 +33,7 @@ int main()
        break;
       case 2:
        listatotal = wificollector_collect();
+       raiz = *listatotal;
        printf("%s", listatotal->prox->info);
        break;
       case 4:
@@ -41,13 +43,15 @@ int main()
        //wificollector_select_worst(arraycollect);
        break;
       case 10:
-       //wificollector_display(arraycollect);
+       //printf("%s", raiz.prox->prox->info);
+       wificollector_display(raiz);
        break;
       case 11:
        //wificollector_display_all(arraycollect);
        break;
     }
   } 
+  free(listatotal);
   return 0;
   //freearraymem(arraycollect);
   

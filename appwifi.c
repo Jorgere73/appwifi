@@ -99,7 +99,6 @@ lista* wificollector_collect()
         }
     } while (nosalir);
     iterator = &raiz;
-                printf("%s\n", iterator->prox->info);
     return iterator;
 }
 
@@ -130,16 +129,30 @@ Celda 21: 1 wifis
 
 En total tenemos 48 wifis difrentes
 */
-/*
-void wificollector_display(lista* nodos)
+
+void wificollector_display(lista nodos)
 {
+  lista* iterator;
   char continuadisplay = '0';
+  bool vacia;
   do
   {
+    iterator = &nodos;
+    vacia = true;
     int numc; //Número de la celda de la cual queremos imprimir información
     printf("Indique el número de la celda del que desea conocer su información (1-21): \n");
     scanf("%d", &numc);
-    while()
+    while(iterator->prox != NULL)
+    {
+        if(iterator->prox->num == numc)
+        {
+            printf("%s", iterator->prox->info);
+            vacia = false;
+            break;
+        }
+        iterator = iterator->prox;
+    }
+    if(vacia) {printf("La celda que busca esta vacia\n");}
     printf("¿Desea imprimir información de otra celda? [S/N]");
     getchar();
     scanf("%c", &continuadisplay);
@@ -147,7 +160,7 @@ void wificollector_display(lista* nodos)
     continuadisplay = tolower(continuadisplay);
   }while(continuadisplay == 's');
 }
-
+/*
 void wificollector_display_all(int** celdas)
 {
   for(int i = 1; i <= 21; i++)
@@ -166,7 +179,7 @@ void wificollector_display_all(int** celdas)
 }
 
 //----------------------------FUNCIONES PROPIAS-----------------------------
-
+/*
 void freearraymem(int** arr)
 {
   for(int c = 0; c <= 22; c++)
