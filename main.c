@@ -34,7 +34,6 @@ int main()
       case 2:
        listatotal = wificollector_collect();
        raiz = *listatotal;
-       printf("%s", listatotal->prox->info);
        break;
       case 4:
        wificollector_select_best(raiz);

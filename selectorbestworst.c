@@ -91,6 +91,7 @@ void wificollector_select_best(lista nodos) //source == arraycollect de main
 
 void wificollector_select_worst(lista nodos) //source == arraycollect de main
 {
+    lista copia = nodos;
     lista* iterator = &nodos;
     int interiorcells[21]; //Guarda el número de celda interior correspondiente a la calidad más alta dentro de un archivo
     int collected[21]; //Guarda los valores de calidad más alta de cada archivo en source
@@ -113,14 +114,18 @@ void wificollector_select_worst(lista nodos) //source == arraycollect de main
     {
         if(collected[i] < min) {min = collected[i]; count = i;}
     }
-    char* string;
+    char* string = (char*) calloc(500, sizeof(char));
 
     iterator = &nodos;
     while(iterator->prox != NULL)
     {
         if(iterator->prox->num == count)
         {
-            string = iterator->prox->info;
+            string = (char*) realloc(string, iterator->prox->tamanoarch);
+            for(int i = 0; i < iterator->prox->tamanoarch; i++)
+            {
+            string[i] = iterator->prox->info[i];
+            }
             break;
         }
         iterator = iterator->prox;
@@ -131,6 +136,7 @@ void wificollector_select_worst(lista nodos) //source == arraycollect de main
     {
         printf("%s\n", worstqdetails[i]);
     }
+            printf("%s", string);
     free(worstqdetails);
     free(string);
 }

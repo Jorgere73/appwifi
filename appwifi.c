@@ -7,12 +7,6 @@
 
 #define MAX_VALUE 500
 
-/*ME CREO MI LISTA
-cada nodo va a tener una wifi diferente no va a tener un archivo .cell*/
-
-
-//para crear nodos y meter la información dentro
-
 struct nodo *crear_nodo(char *info1, int tamano, int numArchivo)
 {
     struct nodo *nodo_nuevo = (lista*) malloc(sizeof(lista));
@@ -180,7 +174,7 @@ void wificollector_display_all(int** celdas)
 }
 
 //----------------------------FUNCIONES PROPIAS-----------------------------
-/*
+
 void freearraymem(int** arr)
 {
   for(int c = 0; c <= 22; c++)
