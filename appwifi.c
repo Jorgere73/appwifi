@@ -155,26 +155,28 @@ void wificollector_display(lista nodos)
     continuadisplay = tolower(continuadisplay);
   }while(continuadisplay == 's');
 }
-/*
-void wificollector_display_all(int** celdas)
+
+void wificollector_display_all(lista nodos)
 {
+  lista* iterator = &nodos;
   for(int i = 1; i <= 21; i++)
   {
-    if(celdas[0][i] == 0) {continue;} //Si está vacía, pasamos a la siguiente
-    else
+    iterator = &nodos;
+    printf("-------------------------Archivo %d-----------------------\n", i);
+    while(iterator->prox != NULL)
     {
-      printf("Celda %d:\n\n", i);
-      for(int c = 0; c < MAX_VALUE; c++)
+      if(iterator->prox->num == i)
       {
-        printf("%c", celdas[i][c]);
+        printf("%s", iterator->prox->info);
+        break;
       }
-      printf("\n\n");
+      iterator = iterator->prox;
     }
   }
 }
 
 //----------------------------FUNCIONES PROPIAS-----------------------------
-
+/*
 void freearraymem(int** arr)
 {
   for(int c = 0; c <= 22; c++)

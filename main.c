@@ -46,7 +46,7 @@ int main()
        wificollector_display(raiz);
        break;
       case 11:
-       //wificollector_display_all(arraycollect);
+       wificollector_display_all(raiz);
        break;
     }
   } 

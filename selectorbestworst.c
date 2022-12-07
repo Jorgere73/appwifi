@@ -56,46 +56,8 @@ void wificollector_select_best(lista nodos) //source == arraycollect de main
     free(string);
 }
 
-/*void wificollector_select_worst(int** source) //source == arraycollect de main
-{
-    int interiorcells[21]; //Guarda el número de celda interior correspondiente a la calidad más alta dentro de un archivo
-    int collected[21]; //Guarda los valores de calidad más alta de cada archivo en source
-    int size = 0;
-
-    for(int i = 0; i < 21; i++)
-    {
-        collected[i] = 0; //Para que al sacar la red con mayor calidad no haya problema con las celdas vacías
-        if(source[0][i] == 0) {continue;}
-        collected[i] = returnquality(source[i], source[22][i], i, interiorcells, false);
-    }
-
-    int min = 70;
-    int count = 0;
-    for(int i = 0; i < 21; i++)
-    {
-        if(collected[i] < min && collected[i] != 0) {min = collected[i]; count = i;}
-    }
-    char* string = calloc(source[22][count], sizeof(char*));
-
-    for(int i = 0; i < source[22][count]; i++)
-    {
-        string[i] = source[count][i];
-    }
-
-    printf("La peor conexion tiene calidad %d/70", min); printf(", es del archivo %d", count); printf(" y celda %d:\n", interiorcells[count]);
-    char** worstqdetails = splitstring(string, "\n", &size);
-    for(int i = 1 + (9*interiorcells[count]); i < 1 + (9*interiorcells[count]) + 7; i++)
-    {
-        printf("%s\n", worstqdetails[i]);
-    }
-    free(worstqdetails);
-    free(string);
-}
-*/
-
 void wificollector_select_worst(lista nodos) //source == arraycollect de main
 {
-    lista copia = nodos;
     lista* iterator = &nodos;
     int interiorcells[21]; //Guarda el número de celda interior correspondiente a la calidad más alta dentro de un archivo
     int collected[21]; //Guarda los valores de calidad más alta de cada archivo en source
@@ -145,6 +107,8 @@ void wificollector_select_worst(lista nodos) //source == arraycollect de main
 }
 
 
+//void wificollector_display_all()
+
 int returnquality(char* str, int numarchivo, int size, int* cell, bool best)
 {
     char* ptr;
@@ -193,6 +157,7 @@ int returnquality(char* str, int numarchivo, int size, int* cell, bool best)
             if(quality[i] < min) {min = quality[i]; cellnum = i;}
         }
         cell[numarchivo] = cellnum; //Retorna a través de cell el numero de la celda interior en la que se encuentra la red con mejor calidad
+        free(str1);
         return min;
     }
 }
