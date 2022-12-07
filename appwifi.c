@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <ctype.h>
 #include "appwifi.h"
+
+#define MAX_VALUE 500
 
 /*ME CREO MI LISTA
 cada nodo va a tener una wifi diferente no va a tener un archivo .cell*/
@@ -12,7 +15,7 @@ cada nodo va a tener una wifi diferente no va a tener un archivo .cell*/
 
 struct nodo *crear_nodo(char *info1, int tamano, int numArchivo)
 {
-    struct nodo *nodo_nuevo = (lista*) calloc(sizeof(lista*),1);
+    struct nodo *nodo_nuevo = (lista*) malloc(sizeof(lista));
     nodo_nuevo->info = (char*)calloc(sizeof(int), tamano);
     nodo_nuevo->info = info1;
     nodo_nuevo->prox = NULL;
@@ -23,8 +26,9 @@ struct nodo *crear_nodo(char *info1, int tamano, int numArchivo)
 lista* wificollector_collect()
 {
     lista raiz;
-    raiz.info = (char*)calloc(sizeof(int), 500); //Nodo a añadirse
-    lista* iterator = &raiz;
+    lista* iterator = (lista*)calloc(sizeof(lista),1);
+    iterator = &raiz;
+
 
     bool exit2;
     bool nosalir;
@@ -56,7 +60,7 @@ lista* wificollector_collect()
                 }
                 else
                 {
-                    char *infoA = (char *)calloc(sizeof(int), 500);
+                    char *infoA = (char *)calloc(sizeof(char), 500);
                     for (int cont = 0; !feof(fcelda); cont++)
                     {
                         int leido = fgetc(fcelda);
@@ -64,7 +68,8 @@ lista* wificollector_collect()
                         numchar = cont;
                     }
                     iterator->prox = crear_nodo(infoA, numchar, eleccion2); //creamos el nodo y metemos la información de las wifis
-                    free(infoA);
+                
+                    //free(infoA);
                 }
                 exit2 = true;
             }
@@ -94,6 +99,7 @@ lista* wificollector_collect()
         }
     } while (nosalir);
     iterator = &raiz;
+                printf("%s\n", iterator->prox->info);
     return iterator;
 }
 
@@ -123,4 +129,67 @@ Celda 20: 2 wifis
 Celda 21: 1 wifis
 
 En total tenemos 48 wifis difrentes
+*/
+/*
+void wificollector_display(lista* nodos)
+{
+  char continuadisplay = '0';
+  do
+  {
+    int numc; //Número de la celda de la cual queremos imprimir información
+    printf("Indique el número de la celda del que desea conocer su información (1-21): \n");
+    scanf("%d", &numc);
+    while()
+    printf("¿Desea imprimir información de otra celda? [S/N]");
+    getchar();
+    scanf("%c", &continuadisplay);
+    printf("\n");
+    continuadisplay = tolower(continuadisplay);
+  }while(continuadisplay == 's');
+}
+
+void wificollector_display_all(int** celdas)
+{
+  for(int i = 1; i <= 21; i++)
+  {
+    if(celdas[0][i] == 0) {continue;} //Si está vacía, pasamos a la siguiente
+    else
+    {
+      printf("Celda %d:\n\n", i);
+      for(int c = 0; c < MAX_VALUE; c++)
+      {
+        printf("%c", celdas[i][c]);
+      }
+      printf("\n\n");
+    }
+  }
+}
+
+//----------------------------FUNCIONES PROPIAS-----------------------------
+
+void freearraymem(int** arr)
+{
+  for(int c = 0; c <= 22; c++)
+  {
+    free(arr[c]);
+  }
+  free(arr);
+}
+
+void aumentartamano(int** arr, int tamano)
+{
+  for(int i = 0; i <= 21; i++)
+  {
+    arr[i] = realloc(arr[i], tamano);
+  }
+}
+
+int filesize(FILE* file)
+{
+  int sz;
+  fseek(file, 0L, SEEK_END); //Va hasta final del archivo y retorna posicion, así sabemos el tamaño
+  sz = ftell(file);
+  rewind(file);
+  return sz;
+}
 */
