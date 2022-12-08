@@ -20,9 +20,9 @@ struct nodo *crear_nodo(char *info1, int tamano, int numArchivo)
 }
 lista* wificollector_collect()
 {
-    lista raiz;
-    lista* iterator = (lista*)calloc(sizeof(lista),1);
-    iterator = &raiz;
+    lista raiz; //Nodo raíz, el primero de todos 
+    lista* iterator = (lista*)calloc(sizeof(lista),1); //Puntero que servirá para trabajar y movernos a través de los diferentes nodos
+    iterator = &raiz; //Seleccionamos el nodo raíz para crear una secuencia
 
 
     bool exit2;
@@ -55,16 +55,15 @@ lista* wificollector_collect()
                 }
                 else
                 {
-                    char *infoA = (char *)calloc(sizeof(char), 500);
+                    char *infoA = (char *)calloc(sizeof(char), 500); //Guardará el texto del archivo seleccionado
                     for (int cont = 0; !feof(fcelda); cont++)
                     {
                         int leido = fgetc(fcelda);
                         infoA[cont] = leido; //Leemos archivo, y transferimos contenido a cadena
                         numchar = cont;
                     }
-                    iterator->prox = crear_nodo(infoA, numchar, eleccion2); //creamos el nodo y metemos la información de las wifis
-                
-                    //free(infoA);
+                    iterator->prox = crear_nodo(infoA, numchar, eleccion2); //creamos el nodo y metemos la información del archivo
+                    //No hacemos free a infoA es un puntero al texto del archivo, si lo liberamos, se elimina este también
                 }
                 exit2 = true;
             }
@@ -82,7 +81,7 @@ lista* wificollector_collect()
         if (decision == 's' || decision == 'S')
         {
             nosalir = true;
-            iterator = iterator->prox;
+            iterator = iterator->prox; //Si quiere seleccionar más, pasamos al siguiente nodo para poder seguir con la secuencia
         }
         else if (decision == 'n' || decision == 'N')
         {
@@ -93,37 +92,10 @@ lista* wificollector_collect()
             printf("Introduzca una de las opciones dadas [S/N]\n");
         }
     } while (nosalir);
-    iterator = &raiz;
+    iterator = &raiz; //Devolvemos un puntero al nodo raíz
     return iterator;
 }
 
-/*
-
-Celda 1: 3 wifis.
-Celda 2: 3 wifis
-Celda 3: 3 wifis
-Celda 4: 3 wifis.
-Celda 5: 3 wifis
-Celda 6: 3 wifis.
-    
-Celda 7: 2 wifis.
-Celda 8: 2 wifis
-Celda 9: 2 wifis
-Celda 10: 2 wifis.
-Celda 11: 2 wifis
-Celda 12: 2 wifis
-Celda 13: 2 wifis.
-Celda 14: 2 wifis
-Celda 15: 2 wifis
-Celda 16: 2 wifis.
-Celda 17: 2 wifis
-Celda 18: 2 wifis
-Celda 19: 2 wifis.
-Celda 20: 2 wifis
-Celda 21: 1 wifis
-
-En total tenemos 48 wifis difrentes
-*/
 
 void wificollector_display(lista nodos)
 {
@@ -137,7 +109,7 @@ void wificollector_display(lista nodos)
     int numc; //Número de la celda de la cual queremos imprimir información
     printf("Indique el número de la celda del que desea conocer su información (1-21): \n");
     scanf("%d", &numc);
-    while(iterator->prox != NULL)
+    while(iterator->prox != NULL) //Hasta que no se haya acabado la cadena de nodos, el bucle sigue
     {
         if(iterator->prox->num == numc)
         {
@@ -174,32 +146,3 @@ void wificollector_display_all(lista nodos)
     }
   }
 }
-
-//----------------------------FUNCIONES PROPIAS-----------------------------
-/*
-void freearraymem(int** arr)
-{
-  for(int c = 0; c <= 22; c++)
-  {
-    free(arr[c]);
-  }
-  free(arr);
-}
-
-void aumentartamano(int** arr, int tamano)
-{
-  for(int i = 0; i <= 21; i++)
-  {
-    arr[i] = realloc(arr[i], tamano);
-  }
-}
-
-int filesize(FILE* file)
-{
-  int sz;
-  fseek(file, 0L, SEEK_END); //Va hasta final del archivo y retorna posicion, así sabemos el tamaño
-  sz = ftell(file);
-  rewind(file);
-  return sz;
-}
-*/

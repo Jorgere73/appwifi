@@ -6,19 +6,16 @@
 
 struct nodo
 {
-    char *info;
-    struct nodo *prox;
-    int num;
-    int tamanoarch;
+    char *info; //El texto que contendrá el nodo
+    struct nodo *prox; //Una referencia al nodo que lo seguirá
+    int num; //Número del archivo al cual pertenece el texto guardado en el nodo
+    int tamanoarch; //Tamaño del texto/archivo guardado en nodo
 };
-typedef struct nodo lista;
+typedef struct nodo lista; //Abreviar
 
-lista* crear_nodo(char* info1, int tamano, int numArchivo);
+lista* crear_nodo(char* info1, int tamano, int numArchivo); //Crea un nuevo nodo con un texto como informacion
 lista* wificollector_collect(); //Guarda contenido de un archivo en un array 
 void wificollector_display(lista nodos); //Imprime la celda elegida por el usuario, guardada en el array
 void wificollector_display_all(lista nodos); //Imprime todas las celdas guardadas 
-void freearraymem(int** arr); //Libera memoria para matrices
-void aumentartamano(int** arr, int tamano); //Cambia el tamano de un array
-int filesize(FILE* file); //Devuelve el tamano del archivo
 
 #endif

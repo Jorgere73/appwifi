@@ -10,18 +10,7 @@ int main()
 {
   
   bool exit = false;
-  /*
-  int** arraycollect; //Array que contendrá el contenido de los archivos tras usar wificollector_collect()
-  arraycollect = (int**)calloc(22, sizeof(int*)); //Reservamos espacio en memoria equivalente a 21 punteros a ints, uno por celda
-  for(int it = 0; it <= 22; it++)
-  {
-    arraycollect[it] = (int*)calloc(MAX_VALUE, sizeof(int)); //Reservamos espacio suficiente como para que quepa el texto de la celda entero
-    *(arraycollect[it]) = 0; //Primer elemento de cada celda será 0 hasta que sea modificado, para identificar celdas vacías
-    arraycollect[0][it] = 0; //arraycollect[0] reservado para identificar celdas vacías, ya que no corresponde a ningún archivo
-  }
-*/
-
-  lista *listatotal = crear_nodo("raiz", 4, 25); //= (lista*)malloc(sizeof(lista)); 
+  lista *listatotal = crear_nodo("raiz", 4, 25);
   lista raiz;
 
   while(!exit)
@@ -42,7 +31,6 @@ int main()
        wificollector_select_worst(raiz);
        break;
       case 10:
-       //printf("%s", raiz.prox->prox->info);
        wificollector_display(raiz);
        break;
       case 11:
@@ -50,8 +38,8 @@ int main()
        break;
     }
   } 
-  free(listatotal);
+  //free(listatotal);
   return 0;
-  //freearraymem(arraycollect);
+  
   
 }
