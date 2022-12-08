@@ -1,4 +1,4 @@
-Integrantes: Jorge Ruipérez Escalera y Emilio José Manchado
+Integrantes: Jorge Ruipérez Escalera (100472783) y Emilio José Manchado Barquero (100472764) -> Grupo 9
 
 Funciones: 
 
